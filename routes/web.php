@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -9,6 +10,12 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashbaord', [AdminDashboardController::class, 'create']);
+});
+
+Route::get('/admin', [AdminController::class, 'create'])->name('admin.login');
+Route::post('/admin', [AdminController::class, 'store'])->name('admin.login');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
