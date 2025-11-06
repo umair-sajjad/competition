@@ -10,6 +10,11 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
+Route::get('/welcome', function () {
+    return Inertia::render('Welcome');
+});
+
+
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/dashbaord', [AdminDashboardController::class, 'create']);
 });
